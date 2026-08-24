@@ -1,0 +1,27 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Jika request bukan untuk file/directory yang ada
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    
+    # Redirect semua ke folder public
+    RewriteRule ^(.*)$ public/$1 [L]
+    
+    # Atau jika ingin semua langsung ke index.php di public
+    # RewriteRule ^(.*)$ public/index.php/$1 [L]
+</IfModule>
+
+# Disable directory listing
+Options -Indexes
+
+# Security - block access to sensitive files
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+<FilesMatch "(\.(env|json|config\.php|md|gitignore|gitattributes|lock)|composer\.(json|lock))$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>

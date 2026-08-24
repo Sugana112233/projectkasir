@@ -1,0 +1,13 @@
+Order deny,allow
+Deny from all
+
+# Allow access only to session directory for PHP sessions
+<Directory "session">
+    Order allow,deny
+    Allow from all
+</Directory>
+
+<FilesMatch "\.(log|txt)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
